@@ -1,25 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Overview from "./components/Overview";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      valueName: "",
+      nameInput: "",
+      valueEmail: "",
+      emailInput: "",
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange = (event) => {
+    const name = event.target.name;
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      nameInput: this.state.valueName,
+      emailInput: this.state.valueEmail,
+    });
+  };
+
+  render() {
+    const { valueName, valueEmail, nameInput, emailInput } = this.state;
+
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input
+            name="valueName"
+            type="text"
+            value={valueName}
+            onChange={this.handleChange}
+            id="nameInput"
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            name="valueEmail"
+            type="email"
+            value={valueEmail}
+            onChange={this.handleChange}
+            id="emailInput"
+          />
+        </label>
+        <input type="submit" value="Submit" />
+        <div>
+          <Overview name={nameInput} email={emailInput} />
+        </div>
+      </form>
+    );
+  }
 }
 
 export default App;
