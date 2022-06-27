@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Overview from "./components/Overview";
+import "./styles/App.css";
 
 class App extends Component {
   constructor(props) {
@@ -46,37 +47,41 @@ class App extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input
-            name="valueName"
-            type="text"
-            value={valueName}
-            onChange={this.handleChange}
-            id="nameInput"
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            name="valueEmail"
-            type="email"
-            value={valueEmail}
-            onChange={this.handleChange}
-            id="emailInput"
-          />
-        </label>
-        <label>
-          Phone:
-          <input
-            name="valuePhone"
-            type="tel"
-            value={valuePhone}
-            onChange={this.handleChange}
-            id="phoneInput"
-          />
-        </label>
-        <input type="submit" value="Submit" />
+        <div className="genForm">
+          {" "}
+          <label>
+            Name:
+            <input
+              name="valueName"
+              type="text"
+              value={valueName}
+              onChange={this.handleChange}
+              id="nameInput"
+            />
+          </label>
+          <label>
+            Email:
+            <input
+              name="valueEmail"
+              type="email"
+              value={valueEmail}
+              onChange={this.handleChange}
+              id="emailInput"
+            />
+          </label>
+          <label>
+            Phone:
+            <input
+              name="valuePhone"
+              type="tel"
+              value={valuePhone}
+              onChange={this.handleChange}
+              id="phoneInput"
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </div>
+
         <div>
           <Overview name={nameInput} email={emailInput} phone={phoneInput} />
         </div>

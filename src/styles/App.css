@@ -1,0 +1,25 @@
+body {
+  background-color: #282c34;
+  color: white;
+  padding: 40px;
+  font-family: Arial;
+  text-align: left;
+}
+
+.Overview {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: solid;
+  padding: 10px;
+}
+
+.genForm {
+  display: flex;
+  gap: 20px;
+  border: solid;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 0.25px;
+}
