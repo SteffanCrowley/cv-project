@@ -10,6 +10,8 @@ class App extends Component {
       nameInput: "",
       valueEmail: "",
       emailInput: "",
+      phoneInput: "",
+      valuePhone: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,11 +30,19 @@ class App extends Component {
     this.setState({
       nameInput: this.state.valueName,
       emailInput: this.state.valueEmail,
+      phoneInput: this.state.valuePhone,
     });
   };
 
   render() {
-    const { valueName, valueEmail, nameInput, emailInput } = this.state;
+    const {
+      valueName,
+      valueEmail,
+      nameInput,
+      emailInput,
+      phoneInput,
+      valuePhone,
+    } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -56,9 +66,19 @@ class App extends Component {
             id="emailInput"
           />
         </label>
+        <label>
+          Phone:
+          <input
+            name="valuePhone"
+            type="tel"
+            value={valuePhone}
+            onChange={this.handleChange}
+            id="phoneInput"
+          />
+        </label>
         <input type="submit" value="Submit" />
         <div>
-          <Overview name={nameInput} email={emailInput} />
+          <Overview name={nameInput} email={emailInput} phone={phoneInput} />
         </div>
       </form>
     );
