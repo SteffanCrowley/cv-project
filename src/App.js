@@ -1,93 +1,65 @@
 import React, { Component } from "react";
-import Overview from "./components/Overview";
+import Edit from "./components/Edit";
+import Preview from "./components/Preview";
 import "./styles/App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      valueName: "",
-      nameInput: "",
-      valueEmail: "",
-      emailInput: "",
-      phoneInput: "",
-      valuePhone: "",
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = { isLoggedIn: false };
   }
 
-  handleChange = (event) => {
-    const name = event.target.name;
-    this.setState({
-      [name]: event.target.value,
-    });
-  };
+  handleLoginClick() {
+    this.setState({ isLoggedIn: true });
+  }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    this.setState({
-      nameInput: this.state.valueName,
-      emailInput: this.state.valueEmail,
-      phoneInput: this.state.valuePhone,
-    });
-  };
+  handleLogoutClick() {
+    this.setState({ isLoggedIn: false });
+  }
 
   render() {
-    const {
-      valueName,
-      valueEmail,
-      nameInput,
-      emailInput,
-      phoneInput,
-      valuePhone,
-    } = this.state;
-
+    const isLoggedIn = this.state.isLoggedIn;
+    let button;
+    if (isLoggedIn) {
+      button = <PreviewButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <EditButton onClick={this.handleLoginClick} />;
+    }
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="genForm">
-          {" "}
-          <label>
-            Name:
-            <input
-              name="valueName"
-              type="text"
-              value={valueName}
-              onChange={this.handleChange}
-              id="nameInput"
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              name="valueEmail"
-              type="email"
-              value={valueEmail}
-              onChange={this.handleChange}
-              id="emailInput"
-            />
-          </label>
-          <label>
-            Phone:
-            <input
-              name="valuePhone"
-              type="tel"
-              value={valuePhone}
-              onChange={this.handleChange}
-              id="phoneInput"
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </div>
-
+      <div>
         <div>
-          <Overview name={nameInput} email={emailInput} phone={phoneInput} />
+          <Greeting isLoggedIn={isLoggedIn} />
+          {button}
         </div>
-      </form>
+      </div>
     );
   }
+}
+
+function EditPage(props) {
+  return <Edit />;
+}
+
+function PreviewPage(props) {
+  return <Preview />;
+}
+
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <EditPage />;
+  }
+  return <PreviewPage />;
+}
+
+function EditButton(props) {
+  return <button onClick={props.onClick}>EDIT</button>;
+}
+
+function PreviewButton(props) {
+  return <button onClick={props.onClick}>PREVIEW</button>;
 }
 
 export default App;

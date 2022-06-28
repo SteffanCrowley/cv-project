@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/App.css";
 
-const Overview = (props) => {
+const Preview = (props) => {
   const { name, email, phone } = props;
 
   return (
@@ -13,4 +13,4 @@ const Overview = (props) => {
   );
 };
 
-export default Overview;
+export default Preview;
