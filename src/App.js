@@ -23,9 +23,9 @@ class App extends Component {
     const isLoggedIn = this.state.isLoggedIn;
     let button;
     if (isLoggedIn) {
-      button = <PreviewButton onClick={this.handleLogoutClick} />;
+      button = <EditButton onClick={this.handleLogoutClick} />;
     } else {
-      button = <EditButton onClick={this.handleLoginClick} />;
+      button = <PreviewButton onClick={this.handleLoginClick} />;
     }
     return (
       <div>
@@ -43,15 +43,17 @@ function EditPage(props) {
 }
 
 function PreviewPage(props) {
-  return <Preview />;
+  return (
+    <Preview name="steffan" email="steffan@gmail.com" phone="949-444-5555" />
+  );
 }
 
 function Greeting(props) {
   const isLoggedIn = props.isLoggedIn;
   if (isLoggedIn) {
-    return <EditPage />;
+    return <PreviewPage />;
   }
-  return <PreviewPage />;
+  return <EditPage />;
 }
 
 function EditButton(props) {
