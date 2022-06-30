@@ -6,62 +6,57 @@ import "./styles/App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.handleLoginClick = this.handleLoginClick.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
-    this.state = { isLoggedIn: false };
+
+    this.previewPage = this.previewPage.bind(this);
+    this.editPage = this.editPage.bind(this);
+    this.state = { isEditMode: true };
   }
 
-  handleLoginClick() {
-    this.setState({ isLoggedIn: true });
-  }
+  previewPage = () => {
+    this.setState({ isEditMode: false });
+  };
 
-  handleLogoutClick() {
-    this.setState({ isLoggedIn: false });
-  }
+  editPage = () => {
+    this.setState({ isEditMode: true });
+  };
 
   render() {
-    const isLoggedIn = this.state.isLoggedIn;
-    let button;
-    if (isLoggedIn) {
-      button = <EditButton onClick={this.handleLogoutClick} />;
+    const isEditMode = this.state.isEditMode;
+
+    let page;
+
+    if (isEditMode) {
+      page = <Edit />;
     } else {
-      button = <PreviewButton onClick={this.handleLoginClick} />;
+      page = (
+        <Preview
+          name="steffan"
+          email="steffan@gmail.com"
+          phone="949-444-5555"
+        />
+      );
     }
+
     return (
       <div>
         <div>
-          <Greeting isLoggedIn={isLoggedIn} />
-          {button}
+          <button onClick={this.editPage}>EDIT</button>
+          <button onClick={this.previewPage}>PREVIEW</button>
+          {page}
         </div>
       </div>
     );
   }
 }
 
-function EditPage(props) {
-  return <Edit />;
-}
+// function EditPage(props) {
+//   return <Edit />;
+// }
 
-function PreviewPage(props) {
-  return (
-    <Preview name="steffan" email="steffan@gmail.com" phone="949-444-5555" />
-  );
-}
-
-function Greeting(props) {
-  const isLoggedIn = props.isLoggedIn;
-  if (isLoggedIn) {
-    return <PreviewPage />;
-  }
-  return <EditPage />;
-}
-
-function EditButton(props) {
-  return <button onClick={props.onClick}>EDIT</button>;
-}
-
-function PreviewButton(props) {
-  return <button onClick={props.onClick}>PREVIEW</button>;
-}
+// function PreviewPage(props) {
+//   return (
+//     <Preview name="steffan" email="steffan@gmail.com" phone="949-444-5555" />
+//   );
+// }
 
 export default App;
