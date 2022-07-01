@@ -13,7 +13,6 @@ class Edit extends Component {
       emailInput: "",
       phoneInput: "",
       valuePhone: "",
-      isEditMode: props.mode,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +28,7 @@ class Edit extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    console.log(this.state.isEditMode);
     this.setState({
       nameInput: this.state.valueName,
       emailInput: this.state.valueEmail,
@@ -37,7 +37,7 @@ class Edit extends Component {
   };
 
   render() {
-    const isEditMode = this.state.isEditMode;
+    const isEditMode = this.props.mode;
     const {
       valueName,
       valueEmail,
