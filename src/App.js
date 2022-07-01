@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Edit from "./components/Edit";
 import Preview from "./components/Preview";
 import "./styles/App.css";
 
@@ -7,9 +6,20 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      valueName: "",
+      nameInput: "",
+      valueEmail: "",
+      emailInput: "",
+      phoneInput: "",
+      valuePhone: "",
+      isEditMode: true,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.previewPage = this.previewPage.bind(this);
     this.editPage = this.editPage.bind(this);
-    this.state = { isEditMode: true };
   }
 
   previewPage = () => {
@@ -20,21 +30,76 @@ class App extends Component {
     this.setState({ isEditMode: true });
   };
 
+  handleChange = (event) => {
+    const name = event.target.name;
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      nameInput: this.state.valueName,
+      emailInput: this.state.valueEmail,
+      phoneInput: this.state.valuePhone,
+    });
+  };
+
   render() {
     const isEditMode = this.state.isEditMode;
+    const {
+      valueName,
+      valueEmail,
+      nameInput,
+      emailInput,
+      phoneInput,
+      valuePhone,
+    } = this.state;
 
     let page;
 
     if (isEditMode) {
-      page = <Edit />;
-    } else {
       page = (
-        <Preview
-          name="steffan"
-          email="steffan@gmail.com"
-          phone="949-444-5555"
-        />
+        <form onSubmit={this.handleSubmit}>
+          <div className="genForm">
+            {" "}
+            <label>
+              Name:
+              <input
+                name="valueName"
+                type="text"
+                value={valueName}
+                onChange={this.handleChange}
+                id="nameInput"
+              />
+            </label>
+            <label>
+              Email:
+              <input
+                name="valueEmail"
+                type="email"
+                value={valueEmail}
+                onChange={this.handleChange}
+                id="emailInput"
+              />
+            </label>
+            <label>
+              Phone:
+              <input
+                name="valuePhone"
+                type="tel"
+                value={valuePhone}
+                onChange={this.handleChange}
+                id="phoneInput"
+              />
+            </label>
+            <input type="submit" value="Save" />
+          </div>
+        </form>
       );
+    } else {
+      page = <Preview name={nameInput} email={emailInput} phone={phoneInput} />;
     }
 
     return (
@@ -48,15 +113,5 @@ class App extends Component {
     );
   }
 }
-
-// function EditPage(props) {
-//   return <Edit />;
-// }
-
-// function PreviewPage(props) {
-//   return (
-//     <Preview name="steffan" email="steffan@gmail.com" phone="949-444-5555" />
-//   );
-// }
 
 export default App;

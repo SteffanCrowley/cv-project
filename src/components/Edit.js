@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "../styles/App.css";
 import Preview from "./Preview";
+import "../styles/App.css";
 
 class Edit extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class Edit extends Component {
       emailInput: "",
       phoneInput: "",
       valuePhone: "",
+      isEditMode: props.mode,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,6 +37,7 @@ class Edit extends Component {
   };
 
   render() {
+    const isEditMode = this.state.isEditMode;
     const {
       valueName,
       valueEmail,
@@ -45,47 +47,55 @@ class Edit extends Component {
       valuePhone,
     } = this.state;
 
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="genForm">
-          {" "}
-          <label>
-            Name:
-            <input
-              name="valueName"
-              type="text"
-              value={valueName}
-              onChange={this.handleChange}
-              id="nameInput"
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              name="valueEmail"
-              type="email"
-              value={valueEmail}
-              onChange={this.handleChange}
-              id="emailInput"
-            />
-          </label>
-          <label>
-            Phone:
-            <input
-              name="valuePhone"
-              type="tel"
-              value={valuePhone}
-              onChange={this.handleChange}
-              id="phoneInput"
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </div>
+    let page;
 
-        <div>
-          <Preview name={nameInput} email={emailInput} phone={phoneInput} />
-        </div>
-      </form>
+    if (isEditMode) {
+      page = (
+        <form onSubmit={this.handleSubmit}>
+          <div className="genForm">
+            {" "}
+            <label>
+              Name:
+              <input
+                name="valueName"
+                type="text"
+                value={valueName}
+                onChange={this.handleChange}
+                id="nameInput"
+              />
+            </label>
+            <label>
+              Email:
+              <input
+                name="valueEmail"
+                type="email"
+                value={valueEmail}
+                onChange={this.handleChange}
+                id="emailInput"
+              />
+            </label>
+            <label>
+              Phone:
+              <input
+                name="valuePhone"
+                type="tel"
+                value={valuePhone}
+                onChange={this.handleChange}
+                id="phoneInput"
+              />
+            </label>
+            <input type="submit" value="Save" />
+          </div>
+        </form>
+      );
+    } else {
+      page = <Preview name={nameInput} email={emailInput} phone={phoneInput} />;
+    }
+
+    return (
+      <div>
+        <div>{page}</div>
+      </div>
     );
   }
 }
