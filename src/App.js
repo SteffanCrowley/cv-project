@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Edit from "./components/Edit";
+import Edit2 from "./components/Edit2";
+import Edit3 from "./components/Edit3";
 import "./styles/App.css";
 
 class App extends Component {
@@ -39,7 +41,8 @@ class App extends Component {
         <button onClick={this.previewPage}>PREVIEW</button>
         {page}
         <Edit mode={isEditMode} />
-        <Edit mode={isEditMode} />
+        <Edit2 mode={isEditMode} />
+        <Edit3 mode={isEditMode} />
       </div>
     );
   }
